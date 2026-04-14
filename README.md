@@ -2,7 +2,7 @@
 
 **Contributors:** senff
 **Donate link:** http://donate.senff.com
-**Tags: categories, cart, restrictions, restrict
+**Tags:** categories, cart, restrictions, restrict
 **Plugin URI:** https://wordpress.org/plugins/stepselect-for-woocommerce
 **Requires at least:** 6.0
 **Tested up to:** 6.9
