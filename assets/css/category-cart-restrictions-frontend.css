@@ -1,0 +1,89 @@
+/* Category Cart Restrictions — Frontend Styles */
+
+.category-cart-restrictions-disabled-button {
+	opacity: 0.5 !important;
+	cursor: not-allowed !important;
+	pointer-events: none !important;
+}
+
+.category-cart-restrictions-restricted-message {
+	color: #e2401c;
+	font-size: 0.875em;
+	margin: 8px 0 0;
+}
+
+/* Single product page: disable the button on initial page load via body class.
+   WooCommerce will override this once a variation is selected, which is fine. */
+.category-cart-restrictions-product-restricted .single_add_to_cart_button,
+.category-cart-restrictions-product-restricted button[name="add-to-cart"],
+.category-cart-restrictions-product-restricted input[name="add-to-cart"] {
+	opacity: 0.5 !important;
+	pointer-events: none !important;
+	cursor: not-allowed !important;
+}
+
+/* Tooltip wrapper — hover on the button or the trigger both show the bubble */
+.category-cart-restrictions-tooltip-wrap {
+	display: inline-flex;
+	align-items: center;
+	position: relative;
+	cursor: help;
+}
+
+/* Trigger icon — styled to match WooCommerce help-tip circles */
+.category-cart-restrictions-tooltip-trigger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: none;
+	background: #999;
+	color: #fff;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: bold;
+	font-family: inherit;
+	cursor: help;
+	padding: 0;
+	line-height: 1;
+	margin-left: 6px;
+}
+
+.category-cart-restrictions-tooltip-trigger:focus {
+	outline: 2px solid #0073aa;
+	outline-offset: 2px;
+}
+
+/* Tooltip bubble */
+.category-cart-restrictions-tooltip-message {
+	display: none;
+	position: absolute;
+	bottom: calc(100% + 8px);
+	left: 0;
+	background: #333;
+	color: #fff;
+	font-size: 0.8em;
+	padding: 8px 12px;
+	border-radius: 4px;
+	width: 220px;
+	z-index: 9999;
+	text-align: left;
+	pointer-events: none;
+}
+
+.category-cart-restrictions-tooltip-message::after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 16px;
+	border: 6px solid transparent;
+	border-top-color: #333;
+}
+
+.category-cart-restrictions-tooltip-wrap:hover .category-cart-restrictions-tooltip-message,
+.category-cart-restrictions-tooltip-trigger[aria-expanded="true"] ~ .category-cart-restrictions-tooltip-message {
+	display: block;
+}
