@@ -1,16 +1,16 @@
 # Category Cart Restrictions for WooCommerce
 
-**Contributors:** senff
-**Donate link:** http://donate.senff.com
-**Tags: categories, cart, restrictions, restrict
-**Plugin URI:** https://wordpress.org/plugins/stepselect-for-woocommerce
-**Requires at least:** 6.0
-**Tested up to:** 6.9
-**Requires PHP:** 7.4
-**Stable tag:** 1.0.0
-**License:** GPLv3
-**License URI:** https://www.gnu.org/licenses/gpl-3.0.html
-**Requires PHP:** 7.4
+* Contributors: senff
+* Donate link: http://donate.senff.com
+* Tags: categories, cart, restrictions, restrict
+* Plugin URI: https://wordpress.org/plugins/stepselect-for-woocommerce
+* Requires at least: 6.0
+* Tested up to: 6.9
+* Requires PHP: 7.4
+* Stable tag: 1.0.0
+* License: GPLv3
+* License URI: https://www.gnu.org/licenses/gpl-3.0.html
+* Requires PHP: 7.4
 
 A WooCommerce plugin that prevents customers from adding products from certain categories when products from another specific category are already in the cart.
 
