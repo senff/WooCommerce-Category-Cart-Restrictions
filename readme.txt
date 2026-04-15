@@ -2,7 +2,7 @@
 Contributors: senff
 Donate link: http://donate.senff.com
 Tags: categories, cart, restrictions, restrict
-Plugin URI: https://wordpress.org/plugins/stepselect-for-woocommerce
+Plugin URI: https://wordpress.org/plugins/category-cart-restrictions-for-woocommerce
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4

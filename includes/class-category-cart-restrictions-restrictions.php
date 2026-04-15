@@ -37,6 +37,9 @@ class Category_Cart_Restrictions_Restrictions {
 	/** Track whether the tooltip JS has already been enqueued this request. */
 	private static $tooltip_js_added = false;
 
+	/** Cached cart category IDs for the current request. */
+	private $cart_category_ids_cache = null;
+
 	/**
 	 * Register a minimal script handle so wp_add_inline_script() has an anchor.
 	 * The handle outputs no src — it is just a container for inline code.
@@ -57,10 +60,15 @@ class Category_Cart_Restrictions_Restrictions {
 	 * @return int[]
 	 */
 	private function get_cart_category_ids() {
+		if ( null !== $this->cart_category_ids_cache ) {
+			return $this->cart_category_ids_cache;
+		}
+
 		$category_ids = array();
 
 		if ( ! WC()->cart ) {
-			return $category_ids;
+			$this->cart_category_ids_cache = $category_ids;
+			return $this->cart_category_ids_cache;
 		}
 
 		foreach ( WC()->cart->get_cart() as $item ) {
@@ -76,7 +84,8 @@ class Category_Cart_Restrictions_Restrictions {
 			}
 		}
 
-		return array_unique( $category_ids );
+		$this->cart_category_ids_cache = array_unique( $category_ids );
+		return $this->cart_category_ids_cache;
 	}
 
 	/**
@@ -149,6 +158,10 @@ class Category_Cart_Restrictions_Restrictions {
 	/**
 	 * Check whether the given product is blocked by any active rule.
 	 *
+	 * Public API for third-party code. Safe to call any time after the cart
+	 * is available (e.g. on the 'wp' hook or later).
+	 *
+	 * @since 1.0
 	 * @param int $product_id
 	 * @return bool
 	 */
@@ -251,6 +264,10 @@ class Category_Cart_Restrictions_Restrictions {
 		if ( $product_id && $this->get_restriction_message( $product_id ) ) {
 			$classes[] = 'category-cart-restrictions-product-restricted';
 		}
+		// Known UX limitation for variable products: WooCommerce's JS re-enables the
+		// add-to-cart button after a variation is selected, even when restricted.
+		// The server-side block in validate_cart_addition() still prevents the actual
+		// cart addition — the customer will see an error notice after clicking.
 		return $classes;
 	}
 
@@ -275,7 +292,7 @@ class Category_Cart_Restrictions_Restrictions {
 		if ( 'tooltip' === Category_Cart_Restrictions_Admin::get_display_style() ) {
 			// Output the tooltip wrap (without the button). JS moves the button
 			// inside the wrap so that hovering it also triggers the tooltip.
-			echo sprintf(
+			printf(
 				'<span class="category-cart-restrictions-tooltip-wrap category-cart-restrictions-single-tooltip">'
 				. '<button type="button" class="category-cart-restrictions-tooltip-trigger" aria-expanded="false" aria-label="%s">?</button>'
 				. '<span class="category-cart-restrictions-tooltip-message" role="tooltip">%s</span>'
@@ -283,38 +300,23 @@ class Category_Cart_Restrictions_Restrictions {
 				esc_attr__( 'Why can\'t I add this to the cart?', 'category-cart-restrictions-for-woocommerce' ),
 				esc_html( $message )
 			);
-			?>
-			<script>
-			( function () {
-				var wrap = document.querySelector( ".category-cart-restrictions-single-tooltip" );
-				var form = document.querySelector( "form.cart" );
-				if ( ! wrap || ! form ) { return; }
-				var btn = form.querySelector( ".single_add_to_cart_button, [name='add-to-cart']" );
-				if ( btn && btn.parentNode ) {
-					// Insert the wrap before the button, then move the button inside it.
-					btn.parentNode.insertBefore( wrap, btn );
-					wrap.insertBefore( btn, wrap.firstChild );
-				}
-
-				// Tooltip tap-toggle for mobile.
-				document.addEventListener( "click", function ( e ) {
-					var trigger = e.target.closest( ".category-cart-restrictions-tooltip-trigger" );
-					if ( trigger ) {
-						var expanded = "true" === trigger.getAttribute( "aria-expanded" );
-						document.querySelectorAll( ".category-cart-restrictions-tooltip-trigger[aria-expanded=\"true\"]" ).forEach( function ( t ) {
-							t.setAttribute( "aria-expanded", "false" );
-						} );
-						trigger.setAttribute( "aria-expanded", expanded ? "false" : "true" );
-						e.stopPropagation();
-					} else {
-						document.querySelectorAll( ".category-cart-restrictions-tooltip-trigger[aria-expanded=\"true\"]" ).forEach( function ( t ) {
-							t.setAttribute( "aria-expanded", "false" );
-						} );
+			// Shared click handler (tap-toggle for mobile).
+			$this->maybe_enqueue_tooltip_js();
+			// DOM manipulation: move the add-to-cart button inside the tooltip wrap.
+			wp_add_inline_script(
+				$this->get_inline_script_handle(),
+				'( function () {
+					var wrap = document.querySelector( ".category-cart-restrictions-single-tooltip" );
+					var form = document.querySelector( "form.cart" );
+					if ( ! wrap || ! form ) { return; }
+					var btn = form.querySelector( ".single_add_to_cart_button, [name=\'add-to-cart\']" );
+					if ( btn && btn.parentNode ) {
+						// Insert the wrap before the button, then move the button inside it.
+						btn.parentNode.insertBefore( wrap, btn );
+						wrap.insertBefore( btn, wrap.firstChild );
 					}
-				} );
-			} )();
-			</script>
-			<?php
+				} )();'
+			);
 		} else {
 			echo '<p class="category-cart-restrictions-restricted-message">' . esc_html( $message ) . '</p>';
 		}

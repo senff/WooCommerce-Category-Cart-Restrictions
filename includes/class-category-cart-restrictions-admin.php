@@ -89,7 +89,7 @@ class Category_Cart_Restrictions_Admin {
 
 	public function handle_form_submission() {
 		$is_add        = isset( $_POST['category_cart_restrictions_action'] ) && 'add_rule' === $_POST['category_cart_restrictions_action'];
-		$is_delete     = ! empty( $_POST['category_cart_restrictions_delete'] ) && is_array( $_POST['category_cart_restrictions_delete'] );
+		$is_delete     = isset( $_POST['category_cart_restrictions_delete_index'] );
 		$is_save_style = isset( $_POST['category_cart_restrictions_action'] ) && 'save_display_style' === $_POST['category_cart_restrictions_action'];
 
 		if ( ! $is_add && ! $is_delete && ! $is_save_style ) {
@@ -137,8 +137,7 @@ class Category_Cart_Restrictions_Admin {
 		}
 
 		if ( $is_delete ) {
-			$category_cart_restrictions_delete = array_map( 'absint', wp_unslash( $_POST['category_cart_restrictions_delete'] ) );
-			$index      = absint( array_key_first( $category_cart_restrictions_delete ) );
+			$index = absint( $_POST['category_cart_restrictions_delete_index'] );
 			if ( isset( $rules[ $index ] ) ) {
 				array_splice( $rules, $index, 1 );
 				update_option( self::OPTION_KEY, $rules );
@@ -356,8 +355,8 @@ class Category_Cart_Restrictions_Admin {
 						<td>
 							<button
 								type="submit"
-								name="category_cart_restrictions_delete[<?php echo esc_attr( $index ); ?>]"
-								value="1"
+								name="category_cart_restrictions_delete_index"
+								value="<?php echo esc_attr( $index ); ?>"
 								class="button button-small"
 								onclick="window.onbeforeunload = null; return confirm('<?php echo esc_js( __( 'Delete this rule?', 'category-cart-restrictions-for-woocommerce' ) ); ?>')"
 							>

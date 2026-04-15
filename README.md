@@ -10,7 +10,6 @@
 * Stable tag: 1.0
 * License: GPLv3
 * License URI: https://www.gnu.org/licenses/gpl-3.0.html
-* Requires PHP: 7.4
 
 A WooCommerce plugin that prevents customers from adding products from certain categories when products from another specific category are already in the cart.
 
