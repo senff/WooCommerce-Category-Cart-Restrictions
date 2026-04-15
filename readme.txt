@@ -6,18 +6,20 @@ Plugin URI: https://wordpress.org/plugins/stepselect-for-woocommerce
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Requires PHP: 7.4
+
 
 Prevent customers from mixing products from conflicting categories in their cart.
+
 
 == Description ==
 
 Category Cart Restrictions for WooCommerce lets you define pairs of product categories whose items can never appear in the cart at the same time. The restriction is bidirectional: if a product from Category A is in the cart, products from Category B cannot be added, and vice versa.
 
-**Features:**
+
+== Features: ==
 
 * Define unlimited category restriction pairs
 * Fully bidirectional — one rule covers both directions
@@ -25,25 +27,22 @@ Category Cart Restrictions for WooCommerce lets you define pairs of product cate
 * Disabled add-to-cart buttons on shop and product pages with a clear explanation
 * Option to show the explanation (for why a product can't be added) with a clear message, or a tooltip
 
+
 == Installation ==
 
-1. Upload the "stepselect-for-woocommerce" directory to your "wp-content/plugins" directory.
-2. In your WordPress admin, go to PLUGINS and activate "StepSelect for WooCommerce"
-3. Go to WooCommerce → Settings → Category Cart Restrictions to configure restriction rules.
+= Installation from within WordPress =
 
-== Changelog ==
+1. Visit **Plugins > Add New**.
+2. Search for **Category Cart Restrictions**.
+3. Install and activate the Category Cart Restrictions plugin.
+4. Go to **WooCommerce → Settings → Category Cart Restrictions** to start setting up restrictions.
 
-= 1.0 =
-* Initial release.
+= Manual installation =
 
-
-== Upgrade Notice ==
-
-= 1.0 =
-Initial release of the plugin.
-
-
-==========================================================================================================================
+1. Upload the entire `category-cart-restrictions-for-woocommerce` folder to the `/wp-content/plugins/` directory.
+2. Visit **Plugins**.
+3. Activate the Category Cart Restrictions plugin.
+4. Go to **WooCommerce → Settings → Category Cart Restrictions** to start setting up restrictions.
 
 
 == Frequently Asked Questions ==
@@ -57,13 +56,13 @@ Maybe products from Category A are shipped from one warehouse, and products from
 = When I select a category, all subcategories are included as well? =
 Yes, since this is the most common scenario. Imagine you have a category APPAREL that has 3 subcategories (MEN, WOMEN, KIDS) and you don't want customers to order any products from the TOYS category.
 
-= But I want people to be able to order TOYS and APPAREL → WOMEN together, but not any other subcategories from APPAREL (MEN and KIDS). =
-You would need to set up 2 restrictions:
+= I want people to be able to order TOYS and APPAREL → WOMEN together, but not any -other- subcategories from APPAREL (MEN and KIDS). =
+Don't create a restriction between TOYS and APPAREL. Instead, you would need to set up 2 restrictions:
 - TOYS and APPAREL → MEN
 - TOYS and APPAREL → KIDS
 With this setup, TOYS can be purchased together with products from APPAREL → WOMEN, but TOYS can not be purchased with products from any other subcategory in APPAREL.
  
-= I'll need more help please! =
+= I need more help please! =
 If you're not sure how to use this, or you're running into any issues with it, post a message on the plugin's [WordPress.org support forum](https://wordpress.org/support/plugin/category-cart-restrictions-for-woocommerce).
 
 = I've noticed that something doesn't work right, or I have an idea for improvement. How can I report this? =
@@ -80,3 +79,13 @@ Please go to the plugin's community support forum at https://wordpress.org/suppo
 3. Product can not be added (product page)
 
 
+== Changelog ==
+
+= 1.0 =
+* Initial release.
+
+
+== Upgrade Notice ==
+
+= 1.0 =
+Initial release of the plugin.

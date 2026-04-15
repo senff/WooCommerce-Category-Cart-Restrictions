@@ -7,7 +7,9 @@ Requires Plugins: woocommerce
 Description: Prevent customers from adding products from certain categories when conflicting category products are already in the cart.
 Author: Senff
 Author URI: http://www.senff.com
-Version: 1.0.0
+Version: 1.0
+Requires at least: 6.0
+Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: category-cart-restrictions-for-woocommerce
@@ -17,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CATEGORY_CART_RESTRICTIONS_VERSION',  '1.0.0' );
+define( 'CATEGORY_CART_RESTRICTIONS_VERSION',  '1.0' );
 define( 'CATEGORY_CART_RESTRICTIONS_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
 define( 'CATEGORY_CART_RESTRICTIONS_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
 define( 'CATEGORY_CART_RESTRICTIONS_BASENAME', plugin_basename( __FILE__ ) );

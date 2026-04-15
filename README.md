@@ -7,7 +7,7 @@
 * Requires at least: 6.0
 * Tested up to: 6.9
 * Requires PHP: 7.4
-* Stable tag: 1.0.0
+* Stable tag: 1.0
 * License: GPLv3
 * License URI: https://www.gnu.org/licenses/gpl-3.0.html
 * Requires PHP: 7.4
@@ -60,7 +60,7 @@ You would need to set up 2 restrictions:
 
 With this setup, TOYS can be purchased together with products from APPAREL → WOMEN, but TOYS cannot be purchased with products from any other subcategory in APPAREL.
 
-**I'll need more help please!**
+**I need more help please!**
 
 If you're not sure how to use this, or you're running into any issues, post a message on the plugin's [WordPress.org support forum](https://wordpress.org/support/plugin/category-cart-restrictions-for-woocommerce).
 
@@ -84,5 +84,12 @@ Please post a message on the plugin's [community support forum](https://wordpres
 
 ## Changelog
 
-### 1.0.0
+### 1.0
 - Initial release.
+
+---
+
+## Upgrade Notice
+
+### 1.0
+- Initial release of the plugin.
