@@ -1,5 +1,3 @@
-/* Category Cart Restrictions — Frontend Styles */
-
 .category-cart-restrictions-disabled-button {
 	opacity: 0.5 !important;
 	cursor: not-allowed !important;
@@ -12,8 +10,6 @@
 	margin: 8px 0 0;
 }
 
-/* Single product page: disable the button on initial page load via body class.
-   WooCommerce will override this once a variation is selected, which is fine. */
 .category-cart-restrictions-product-restricted .single_add_to_cart_button,
 .category-cart-restrictions-product-restricted button[name="add-to-cart"],
 .category-cart-restrictions-product-restricted input[name="add-to-cart"] {
@@ -22,7 +18,6 @@
 	cursor: not-allowed !important;
 }
 
-/* Tooltip wrapper — hover on the button or the trigger both show the bubble */
 .category-cart-restrictions-tooltip-wrap {
 	display: inline-flex;
 	align-items: center;
@@ -30,7 +25,6 @@
 	cursor: help;
 }
 
-/* Trigger icon — styled to match WooCommerce help-tip circles */
 .category-cart-restrictions-tooltip-trigger {
 	display: inline-flex;
 	align-items: center;
@@ -57,7 +51,6 @@
 	outline-offset: 2px;
 }
 
-/* Tooltip bubble */
 .category-cart-restrictions-tooltip-message {
 	display: none;
 	position: absolute;
