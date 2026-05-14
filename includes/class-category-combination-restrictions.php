@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Category_Cart_Restrictions_Restrictions {
+class Category_Combination_Restrictions_Restrictions {
 
 	public function __construct() {
 		// Server-side: block adding a restricted product to the cart.
@@ -26,10 +26,10 @@ class Category_Cart_Restrictions_Restrictions {
 	public function enqueue_styles() {
 		if ( is_woocommerce() || is_cart() ) {
 			wp_enqueue_style(
-				'category-cart-restrictions-frontend',
-				CATEGORY_CART_RESTRICTIONS_PLUGIN_URL . 'assets/css/category-cart-restrictions-frontend.css',
+				'category-combination-restrictions-frontend',
+				CATEGORY_COMBINATION_RESTRICTIONS_PLUGIN_URL . 'assets/css/category-combination-restrictions-frontend.css',
 				array(),
-				CATEGORY_CART_RESTRICTIONS_VERSION
+				CATEGORY_COMBINATION_RESTRICTIONS_VERSION
 			);
 		}
 	}
@@ -42,12 +42,12 @@ class Category_Cart_Restrictions_Restrictions {
 
 	/**
 	 * Register a minimal script handle so wp_add_inline_script() has an anchor.
-	 * The handle outputs no src — it is just a container for inline code.
+	 * The handle outputs no src -- it is just a container for inline code.
 	 */
 	private function get_inline_script_handle() {
-		$handle = 'category-cart-restrictions-inline';
+		$handle = 'category-combination-restrictions-inline';
 		if ( ! wp_script_is( $handle, 'registered' ) ) {
-			wp_register_script( $handle, '', array(), CATEGORY_CART_RESTRICTIONS_VERSION, true );
+			wp_register_script( $handle, '', array(), CATEGORY_COMBINATION_RESTRICTIONS_VERSION, true );
 		}
 		wp_enqueue_script( $handle );
 		return $handle;
@@ -120,7 +120,7 @@ class Category_Cart_Restrictions_Restrictions {
 	 * @return string[]
 	 */
 	private function get_trigger_category_names( $product_id ) {
-		$rules = Category_Cart_Restrictions_Admin::get_rules();
+		$rules = Category_Combination_Restrictions_Admin::get_rules();
 		if ( empty( $rules ) ) {
 			return array();
 		}
@@ -143,12 +143,12 @@ class Category_Cart_Restrictions_Restrictions {
 
 			// Direction A→B: cart contains A, product is in B.
 			if ( in_array( $cat_a, $cart_categories, true ) && in_array( $cat_b, $product_categories, true ) ) {
-				$trigger_names[] = Category_Cart_Restrictions_Admin::get_category_label( $cat_a );
+				$trigger_names[] = Category_Combination_Restrictions_Admin::get_category_label( $cat_a );
 			}
 
 			// Direction B→A: cart contains B, product is in A.
 			if ( in_array( $cat_b, $cart_categories, true ) && in_array( $cat_a, $product_categories, true ) ) {
-				$trigger_names[] = Category_Cart_Restrictions_Admin::get_category_label( $cat_b );
+				$trigger_names[] = Category_Combination_Restrictions_Admin::get_category_label( $cat_b );
 			}
 		}
 
@@ -185,7 +185,7 @@ class Category_Cart_Restrictions_Restrictions {
 		if ( 1 === count( $names ) ) {
 			return sprintf(
 				/* translators: %s: product category name */
-				__( 'This product cannot be added as long as the cart contains any products from the "%s" category (or any of its subcategories).', 'category-cart-restrictions-for-woocommerce' ),
+				__( 'This product cannot be added as long as the cart contains any products from the "%s" category (or any of its subcategories).', 'category-combination-restrictions-for-woocommerce' ),
 				$names[0]
 			);
 		}
@@ -195,7 +195,7 @@ class Category_Cart_Restrictions_Restrictions {
 
 		return sprintf(
 			/* translators: 1: comma-separated list of category names, 2: final category name */
-			__( 'This product cannot be added as long as the cart contains any products from the %1$s or "%2$s" categories (or any of their subcategories).', 'category-cart-restrictions-for-woocommerce' ),
+			__( 'This product cannot be added as long as the cart contains any products from the %1$s or "%2$s" categories (or any of their subcategories).', 'category-combination-restrictions-for-woocommerce' ),
 			implode( ', ', $all_but ),
 			$last
 		);
@@ -231,25 +231,25 @@ class Category_Cart_Restrictions_Restrictions {
 		}
 
 		$btn = sprintf(
-			'<button type="button" class="button add_to_cart_button category-cart-restrictions-disabled-button" disabled aria-disabled="true">%s</button>',
-			esc_html__( 'Add to cart', 'category-cart-restrictions-for-woocommerce' )
+			'<button type="button" class="button add_to_cart_button category-combination-restrictions-disabled-button" disabled aria-disabled="true">%s</button>',
+			esc_html__( 'Add to cart', 'category-combination-restrictions-for-woocommerce' )
 		);
 
-		if ( 'tooltip' === Category_Cart_Restrictions_Admin::get_display_style() ) {
+		if ( 'tooltip' === Category_Combination_Restrictions_Admin::get_display_style() ) {
 			$this->maybe_enqueue_tooltip_js();
 			return sprintf(
-				'<span class="category-cart-restrictions-tooltip-wrap">'
-				. '<button type="button" class="button add_to_cart_button category-cart-restrictions-disabled-button" disabled aria-disabled="true">%s</button>'
-				. '<button type="button" class="category-cart-restrictions-tooltip-trigger" aria-expanded="false" aria-label="%s">?</button>'
-				. '<span class="category-cart-restrictions-tooltip-message" role="tooltip">%s</span>'
+				'<span class="category-combination-restrictions-tooltip-wrap">'
+				. '<button type="button" class="button add_to_cart_button category-combination-restrictions-disabled-button" disabled aria-disabled="true">%s</button>'
+				. '<button type="button" class="category-combination-restrictions-tooltip-trigger" aria-expanded="false" aria-label="%s">?</button>'
+				. '<span class="category-combination-restrictions-tooltip-message" role="tooltip">%s</span>'
 				. '</span>',
-				esc_html__( 'Add to cart', 'category-cart-restrictions-for-woocommerce' ),
-				esc_attr__( 'Why is this disabled?', 'category-cart-restrictions-for-woocommerce' ),
+				esc_html__( 'Add to cart', 'category-combination-restrictions-for-woocommerce' ),
+				esc_attr__( 'Why is this disabled?', 'category-combination-restrictions-for-woocommerce' ),
 				esc_html( $message )
 			);
 		}
 
-		return $btn . sprintf( '<p class="category-cart-restrictions-restricted-message">%s</p>', esc_html( $message ) );
+		return $btn . sprintf( '<p class="category-combination-restrictions-restricted-message">%s</p>', esc_html( $message ) );
 	}
 
 	/**
@@ -262,12 +262,12 @@ class Category_Cart_Restrictions_Restrictions {
 		}
 		$product_id = get_queried_object_id();
 		if ( $product_id && $this->get_restriction_message( $product_id ) ) {
-			$classes[] = 'category-cart-restrictions-product-restricted';
+			$classes[] = 'category-combination-restrictions-product-restricted';
 		}
 		// Known UX limitation for variable products: WooCommerce's JS re-enables the
 		// add-to-cart button after a variation is selected, even when restricted.
 		// The server-side block in validate_cart_addition() still prevents the actual
-		// cart addition — the customer will see an error notice after clicking.
+		// cart addition -- the customer will see an error notice after clicking.
 		return $classes;
 	}
 
@@ -289,15 +289,15 @@ class Category_Cart_Restrictions_Restrictions {
 			return;
 		}
 
-		if ( 'tooltip' === Category_Cart_Restrictions_Admin::get_display_style() ) {
+		if ( 'tooltip' === Category_Combination_Restrictions_Admin::get_display_style() ) {
 			// Output the tooltip wrap (without the button). JS moves the button
 			// inside the wrap so that hovering it also triggers the tooltip.
 			printf(
-				'<span class="category-cart-restrictions-tooltip-wrap category-cart-restrictions-single-tooltip">'
-				. '<button type="button" class="category-cart-restrictions-tooltip-trigger" aria-expanded="false" aria-label="%s">?</button>'
-				. '<span class="category-cart-restrictions-tooltip-message" role="tooltip">%s</span>'
+				'<span class="category-combination-restrictions-tooltip-wrap category-combination-restrictions-single-tooltip">'
+				. '<button type="button" class="category-combination-restrictions-tooltip-trigger" aria-expanded="false" aria-label="%s">?</button>'
+				. '<span class="category-combination-restrictions-tooltip-message" role="tooltip">%s</span>'
 				. '</span>',
-				esc_attr__( 'Why can\'t I add this to the cart?', 'category-cart-restrictions-for-woocommerce' ),
+				esc_attr__( 'Why can\'t I add this to the cart?', 'category-combination-restrictions-for-woocommerce' ),
 				esc_html( $message )
 			);
 			// Shared click handler (tap-toggle for mobile).
@@ -306,7 +306,7 @@ class Category_Cart_Restrictions_Restrictions {
 			wp_add_inline_script(
 				$this->get_inline_script_handle(),
 				'( function () {
-					var wrap = document.querySelector( ".category-cart-restrictions-single-tooltip" );
+					var wrap = document.querySelector( ".category-combination-restrictions-single-tooltip" );
 					var form = document.querySelector( "form.cart" );
 					if ( ! wrap || ! form ) { return; }
 					var btn = form.querySelector( ".single_add_to_cart_button, [name=\'add-to-cart\']" );
@@ -318,7 +318,7 @@ class Category_Cart_Restrictions_Restrictions {
 				} )();'
 			);
 		} else {
-			echo '<p class="category-cart-restrictions-restricted-message">' . esc_html( $message ) . '</p>';
+			echo '<p class="category-combination-restrictions-restricted-message">' . esc_html( $message ) . '</p>';
 		}
 	}
 
@@ -335,16 +335,16 @@ class Category_Cart_Restrictions_Restrictions {
 			$this->get_inline_script_handle(),
 			'( function () {
 				document.addEventListener( "click", function ( e ) {
-					var trigger = e.target.closest( ".category-cart-restrictions-tooltip-trigger" );
+					var trigger = e.target.closest( ".category-combination-restrictions-tooltip-trigger" );
 					if ( trigger ) {
 						var expanded = "true" === trigger.getAttribute( "aria-expanded" );
-						document.querySelectorAll( ".category-cart-restrictions-tooltip-trigger[aria-expanded=\'true\']" ).forEach( function ( t ) {
+						document.querySelectorAll( ".category-combination-restrictions-tooltip-trigger[aria-expanded=\'true\']" ).forEach( function ( t ) {
 							t.setAttribute( "aria-expanded", "false" );
 						} );
 						trigger.setAttribute( "aria-expanded", expanded ? "false" : "true" );
 						e.stopPropagation();
 					} else {
-						document.querySelectorAll( ".category-cart-restrictions-tooltip-trigger[aria-expanded=\'true\']" ).forEach( function ( t ) {
+						document.querySelectorAll( ".category-combination-restrictions-tooltip-trigger[aria-expanded=\'true\']" ).forEach( function ( t ) {
 							t.setAttribute( "aria-expanded", "false" );
 						} );
 					}

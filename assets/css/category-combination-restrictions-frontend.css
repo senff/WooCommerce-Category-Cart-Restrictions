@@ -1,31 +1,31 @@
-.category-cart-restrictions-disabled-button {
+.category-combination-restrictions-disabled-button {
 	opacity: 0.5 !important;
 	cursor: not-allowed !important;
 	pointer-events: none !important;
 }
 
-.category-cart-restrictions-restricted-message {
+.category-combination-restrictions-restricted-message {
 	color: #e2401c;
 	font-size: 0.875em;
 	margin: 8px 0 0;
 }
 
-.category-cart-restrictions-product-restricted .single_add_to_cart_button,
-.category-cart-restrictions-product-restricted button[name="add-to-cart"],
-.category-cart-restrictions-product-restricted input[name="add-to-cart"] {
+.category-combination-restrictions-product-restricted .single_add_to_cart_button,
+.category-combination-restrictions-product-restricted button[name="add-to-cart"],
+.category-combination-restrictions-product-restricted input[name="add-to-cart"] {
 	opacity: 0.5 !important;
 	pointer-events: none !important;
 	cursor: not-allowed !important;
 }
 
-.category-cart-restrictions-tooltip-wrap {
+.category-combination-restrictions-tooltip-wrap {
 	display: inline-flex;
 	align-items: center;
 	position: relative;
 	cursor: help;
 }
 
-.category-cart-restrictions-tooltip-trigger {
+.category-combination-restrictions-tooltip-trigger {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -46,12 +46,12 @@
 	margin-left: 6px;
 }
 
-.category-cart-restrictions-tooltip-trigger:focus {
+.category-combination-restrictions-tooltip-trigger:focus {
 	outline: 2px solid #0073aa;
 	outline-offset: 2px;
 }
 
-.category-cart-restrictions-tooltip-message {
+.category-combination-restrictions-tooltip-message {
 	display: none;
 	position: absolute;
 	bottom: calc(100% + 8px);
@@ -67,7 +67,7 @@
 	pointer-events: none;
 }
 
-.category-cart-restrictions-tooltip-message::after {
+.category-combination-restrictions-tooltip-message::after {
 	content: '';
 	position: absolute;
 	top: 100%;
@@ -76,7 +76,7 @@
 	border-top-color: #333;
 }
 
-.category-cart-restrictions-tooltip-wrap:hover .category-cart-restrictions-tooltip-message,
-.category-cart-restrictions-tooltip-trigger[aria-expanded="true"] ~ .category-cart-restrictions-tooltip-message {
+.category-combination-restrictions-tooltip-wrap:hover .category-combination-restrictions-tooltip-message,
+.category-combination-restrictions-tooltip-trigger[aria-expanded="true"] ~ .category-combination-restrictions-tooltip-message {
 	display: block;
 }
